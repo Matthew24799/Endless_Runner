@@ -1,14 +1,14 @@
 import kaboom from "https://unpkg.com/kaboom@3000.0.1/dist/kaboom.mjs";
-const jumpForce = 800;
-const speed = 480;
-
-kaboom({
-    width: 960,
-    height: 540,
-   
-})
-
+const jumpForce = 650;
+const speed = 600;
+const floorHeight = 48;
 let score = 0;
+kaboom({
+    width: 1280,
+    height: 720,
+});
+
+
 setGravity(1600);
 
 loadSprite("gobbo", "gobboSheet.png", {
@@ -36,7 +36,7 @@ scene("game", () => {
         }),
 
         scale(2),
-        pos( width() - 550 , height() / 4)
+        pos( width() / 2.5 , height() / 4)
     ])
 
     onUpdate(() => {
@@ -49,7 +49,7 @@ scene("game", () => {
     const player = add([
         sprite("gobbo"),
         scale(3),
-        pos(80,40),
+        pos(),
         area(),
         body(),
     
