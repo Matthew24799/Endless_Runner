@@ -3,7 +3,7 @@ const jumpForce = 650;
 const speed = 600;
 const floorHeight = 48;
 let score = 0;
-
+const game = document.querySelector("#game");
 
 
 const scales = Math.min(
@@ -34,7 +34,7 @@ if (scaledWidth > 1280 || scaledHeight > 720) {
 kaboom({
   //  width: 1280,
   //  height: 720,
-
+    canvas: game,
   width: scaledWidth,
   height: scaledHeight,
     font: "upHeave",
@@ -72,8 +72,7 @@ loadSprite("gobbo", "gobboSheet.png", {
   
 loadSprite("spike", "spike.png");
 loadSprite("floor", "floor.png");
-loadSprite("cloud", "cloud.png");
-loadFont("rebel", "rebel.ttf");
+loadSprite("cloud", "cloud.png"); 
 loadFont("upHeave", "upheavtt.ttf");
 scene("game", () => {
     
