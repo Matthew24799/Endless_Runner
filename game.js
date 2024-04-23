@@ -81,7 +81,7 @@ scene("game", () => {
     const player = add([
         sprite("gobbo"),
         scale(3),
-        pos( width() /  8 , 500),
+        pos(70,500),
         area(),
         body(),
     
