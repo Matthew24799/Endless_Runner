@@ -3,9 +3,41 @@ const jumpForce = 650;
 const speed = 600;
 const floorHeight = 48;
 let score = 0;
+
+
+
+const scales = Math.min(
+    window.innerWidth / 1280, 
+    window.innerHeight / 720
+);
+
+
+
+let scaledWidth = 1280 * scales;
+let scaledHeight = 720 * scales;
+
+
+if (scaledWidth > 1280 || scaledHeight > 720) {
+    const aspectRatio = 1280 / 720; 
+    if (scaledWidth / scaledHeight > aspectRatio) {
+        // Limit width
+        scaledWidth = 1280;
+        scaledHeight = scaledWidth / scales;
+    } else {
+        
+        scaledHeight = 720;
+        scaledWidth = scaledHeight * scales;
+    }
+}
+
+
 kaboom({
-    width: 1280,
-    height: 720,
+  //  width: 1280,
+  //  height: 720,
+
+  width: scaledWidth,
+  height: scaledHeight,
+
 });
 
 
@@ -49,7 +81,7 @@ scene("game", () => {
     const player = add([
         sprite("gobbo"),
         scale(3),
-        pos(70,500),
+        pos( width() /  8 , 500),
         area(),
         body(),
     
@@ -70,7 +102,7 @@ scene("game", () => {
             sprite("cloud"),
             scale(4),
             pos(width(),rand(0, height() / 2)),
-            move(LEFT, 300),
+            move(LEFT, speed ),
             "cloud",
         ])
 
@@ -100,6 +132,10 @@ scene("game", () => {
         player.jump(jumpForce); 
        }
          
+    });
+
+    onClick(() => {
+        player.jump(jumpForce)
     });
 
     onKeyPress("f", (c) => {
