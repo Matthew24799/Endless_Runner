@@ -41,7 +41,7 @@ kaboom({
 });
 
 
-setGravity(1600);
+setGravity(1400);
 
 loadSprite("gobbo", "gobboSheet.png", {
     sliceX: 6, 
@@ -80,7 +80,7 @@ scene("game", () => {
 
     const player = add([
         sprite("gobbo"),
-        scale(3),
+        scale(3 ),
         pos(70,500),
         area(),
         body(),
@@ -135,7 +135,9 @@ scene("game", () => {
     });
 
     onClick(() => {
-        player.jump(jumpForce)
+        if (player.isGrounded()) {
+            player.jump(jumpForce); 
+           }
     });
 
     onKeyPress("f", (c) => {
