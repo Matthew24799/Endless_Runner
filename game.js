@@ -37,7 +37,7 @@ kaboom({
 
   width: scaledWidth,
   height: scaledHeight,
-
+    font: "upHeave",
 });
 
 
@@ -74,13 +74,13 @@ loadSprite("spike", "spike.png");
 loadSprite("floor", "floor.png");
 loadSprite("cloud", "cloud.png");
 loadFont("rebel", "rebel.ttf");
-
+loadFont("upHeave", "upheavtt.ttf");
 scene("game", () => {
     
 
     const scoreLabel = add([
         text(score, {
-            font: "rebel"
+            font: "upHeave"
         }),
 
         scale(2),
@@ -174,7 +174,7 @@ scene("game", () => {
 scene("lose", () => {
     
    const dead = add([
-    pos(width() / 2.4, height() / 1.3),
+    pos(width() / 2.3, height() / 1.4),
     sprite("dead"),
     scale(8)
 ])
@@ -183,7 +183,6 @@ dead.play("dead")
 
     add([
         text("game Over", {
-            font: "rebel"
         }),
         scale(3),
         pos(center()),
@@ -192,7 +191,6 @@ dead.play("dead")
 
     add([
         text(score, {
-            font: "rebel"
         }),
         pos(width() / 2, height() / 2 + 80),
         scale(2),
