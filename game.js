@@ -49,7 +49,7 @@ scene("game", () => {
     const player = add([
         sprite("gobbo"),
         scale(3),
-        pos(),
+        pos(70,500),
         area(),
         body(),
     
