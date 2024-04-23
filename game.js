@@ -43,6 +43,20 @@ kaboom({
 
 setGravity(1400);
 
+
+
+loadSprite("dead", "deadSheet.png", {
+    sliceX: 2, 
+    sliceY: 1,
+    anims: {
+        dead: {
+            from: 0,
+            to: 1,
+            loop: true, 
+        },
+    },
+})
+
 loadSprite("gobbo", "gobboSheet.png", {
     sliceX: 6, 
     sliceY: 1,
@@ -54,6 +68,7 @@ loadSprite("gobbo", "gobboSheet.png", {
         },
     },
 })
+
   
 loadSprite("spike", "spike.png");
 loadSprite("floor", "floor.png");
@@ -61,6 +76,7 @@ loadSprite("cloud", "cloud.png");
 loadFont("rebel", "rebel.ttf");
 
 scene("game", () => {
+    
 
     const scoreLabel = add([
         text(score, {
@@ -80,7 +96,7 @@ scene("game", () => {
 
     const player = add([
         sprite("gobbo"),
-        scale(3 ),
+        scale(3),
         pos(70,500),
         area(),
         body(),
@@ -104,9 +120,10 @@ scene("game", () => {
             pos(width(),rand(0, height() / 2)),
             move(LEFT, speed ),
             "cloud",
+            offscreen({ destroy: true }),
         ])
 
-        wait(rand(0.5,1.5), spawnClouds)
+        wait(rand(0.5,1.0), spawnClouds)
     }
 
     spawnClouds();
@@ -120,9 +137,10 @@ scene("game", () => {
                 anchor("botleft"),
                 move(LEFT,speed),
                 "spike",
+                offscreen({ destroy: true }),
             ])
         
-        wait(rand(0.5, 1.5), spawnSpikes)
+        wait(rand(1.0, 1.5), spawnSpikes)
     }
     
     spawnSpikes();
@@ -148,17 +166,26 @@ scene("game", () => {
     player.onCollide("spike", () => {
         go("lose");
         shake();
-        addKaboom(player.pos);
+        
     })
     
 });
 
 scene("lose", () => {
+    
+   const dead = add([
+    pos(width() / 2.4, height() / 1.3),
+    sprite("dead"),
+    scale(8)
+])
+
+dead.play("dead")
+
     add([
         text("game Over", {
             font: "rebel"
         }),
-        scale(2),
+        scale(3),
         pos(center()),
         anchor("center"),
     ]);
@@ -171,6 +198,7 @@ scene("lose", () => {
         scale(2),
         anchor("center"),
     ]);
+
     score = 0;
 
     onKeyPress("f", (c) => {
