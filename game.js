@@ -11,63 +11,16 @@ kaboom({
 let score = 0;
 setGravity(1600);
 
-
-loadJSON("gobboSheet","gobbo.json");
-
-loadAseprite("gobbo", "gobboBoi-sheet.png", "gobbo.json", {
-    "frames": [
-        {
-         "filename": "gobOOO 0.png",
-         "frame": { "x": 0, "y": 0, "w": 23, "h": 20 },
-         "rotated": false,
-         "trimmed": false,
-         "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 20 },
-         "sourceSize": { "w": 23, "h": 20 },
-         "duration": 100
+loadSprite("gobbo", "gobboSheet.png", {
+    sliceX: 6, 
+    sliceY: 1,
+    anims: {
+        run: {
+            from: 0,
+            to: 5,
+            loop: true, 
         },
-        {
-         "filename": "gobOOO 1.png",
-         "frame": { "x": 23, "y": 0, "w": 23, "h": 20 },
-         "rotated": false,
-         "trimmed": false,
-         "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 20 },
-         "sourceSize": { "w": 23, "h": 20 },
-         "duration": 100
-        },
-        {
-         "filename": "gobOOO 2.png",
-         "frame": { "x": 46, "y": 0, "w": 23, "h": 20 },
-         "rotated": false,
-         "trimmed": false,
-         "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 20 },
-         "sourceSize": { "w": 23, "h": 20 },
-         "duration": 100
-        },
-        {
-         "filename": "gobOOO 3.png",
-         "frame": { "x": 69, "y": 0, "w": 23, "h": 20 },
-         "rotated": false,
-         "trimmed": false,
-         "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 20 },
-         "sourceSize": { "w": 23, "h": 20 },
-         "duration": 100
-        },
-        {
-         "filename": "gobOOO 4.png",
-         "frame": { "x": 92, "y": 0, "w": 23, "h": 20 },
-         "rotated": false,
-         "trimmed": false,
-         "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 20 },
-         "sourceSize": { "w": 23, "h": 20 },
-         "duration": 100
-        },
-
-      ],
-
-      anims: {
-        run: { from: 0, to: 92 },
     },
-    
 })
   
 loadSprite("spike", "spike.png");
@@ -95,7 +48,7 @@ scene("game", () => {
 
     const player = add([
         sprite("gobbo"),
-        scale(2 ),
+        scale(3),
         pos(80,40),
         area(),
         body(),
