@@ -69,7 +69,7 @@ loadSprite("gobbo", "gobboSheet.png", {
     },
 })
 
-  
+loadSprite("doubleSpike", "doubleSpike.png");
 loadSprite("spike", "spike.png");
 loadSprite("floor", "floor.png");
 loadSprite("cloud", "cloud.png"); 
@@ -99,6 +99,7 @@ scene("game", () => {
         pos(70,500),
         area(),
         body(),
+      
     
     ]);
  
@@ -132,23 +133,50 @@ scene("game", () => {
                 sprite("spike"),
                 scale(3 ),
                 area(),
-                pos(width(), height() - 48),
+                pos(width(), height() - floorHeight),
                 anchor("botleft"),
                 move(LEFT,speed),
                 "spike",
                 offscreen({ destroy: true }),
             ])
         
-        wait(rand(1.0, 1.5), spawnSpikes)
     }
+
+    function spawnDoubleSpikes() {
+        const doubleSpike = add([
+            sprite("doubleSpike"),
+            scale(3 ),
+            area(),
+            pos(width(), height() - floorHeight),
+            anchor("botleft"),
+            move(LEFT,speed),
+            "doubleSpike",
+            offscreen({ destroy: true }),
+    ])}
     
-    spawnSpikes();
-    
+
+
+function spawnTraps() {
+   const trap = randi(1,3)
+   console.log(trap);
+    if(trap == 1) {
+        spawnSpikes();
+    } else if (trap == 2 ) {
+        spawnDoubleSpikes();
+    };
+    wait(rand(1.0 , 1.5 ), spawnTraps)
+};
+
+spawnTraps();
+
+
+
+
     onKeyPress("space", () => {
        if (player.isGrounded()) {
         player.jump(jumpForce); 
        }
-         
+      
     });
 
     onClick(() => {
@@ -162,12 +190,18 @@ scene("game", () => {
     })
     
     
-    player.onCollide("spike", () => {
+    player.onCollide("spike",  () => {
         go("lose");
         shake();
         
     })
     
+    player.onCollide("doubleSpike",  () => {
+        go("lose");
+        shake();
+        
+    })
+
 });
 
 scene("lose", () => {
