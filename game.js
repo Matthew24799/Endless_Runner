@@ -153,7 +153,7 @@ scene("game", () => {
                 pos(width(), height() - floorHeight),
                 anchor("botleft"),
                 move(LEFT,speed),
-                "spike",
+                "trap",
                 offscreen({ destroy: true }),
             ]) 
         
@@ -167,7 +167,7 @@ scene("game", () => {
             pos(width(), height() - floorHeight),
             anchor("botleft"),
             move(LEFT,speed),
-            "doubleSpike",
+            "trap",
             offscreen({ destroy: true }),
     ])}
     
@@ -193,7 +193,7 @@ spawnTraps();
        
         player.play("jump"); 
         player.doubleJump(jumpForce);
-        wait(2, () => {
+        wait(0.5, () => {
             player.play("run");
         
         })
@@ -201,9 +201,12 @@ spawnTraps();
     });
 
     onClick(() => {
-        if (player.isGrounded()) {
-            player.jump(jumpForce); 
-           }
+        player.play("jump"); 
+        player.doubleJump(jumpForce);
+        wait(0.5, () => {
+            player.play("run");
+        
+        })
     });
 
     onKeyPress("f", (c) => {
@@ -211,17 +214,13 @@ spawnTraps();
     })
     
     
-    player.onCollide("spike",  () => {
+    player.onCollide("trap",  () => {
         go("lose");
         shake();
         
     })
     
-    player.onCollide("doubleSpike",  () => {
-        go("lose");
-        shake();
-        
-    })
+
 
 });
 
