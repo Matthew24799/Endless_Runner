@@ -38,6 +38,7 @@ kaboom({
   width: scaledWidth,
   height: scaledHeight,
     font: "upHeave",
+    letterbox: true,
 });
 
 
@@ -57,15 +58,19 @@ loadSprite("dead", "deadSheet.png", {
     },
 })
 
-loadSprite("gobbo", "gobboSheet.png", {
-    sliceX: 6, 
+loadSprite("gobbo", "gabbo2.png", {
+    sliceX: 4, 
     sliceY: 1,
     anims: {
         run: {
             from: 0,
-            to: 5,
+            to: 2,
             loop: true, 
         },
+        jump: {
+            from: 3,
+            to: 3,
+        }
     },
 })
 
@@ -103,7 +108,11 @@ scene("game", () => {
     
     ]);
  
-    player.play("run")
+
+        player.play("run")   
+
+
+
     
      add([
         sprite("floor"),
@@ -174,9 +183,13 @@ spawnTraps();
 
     onKeyPress("space", () => {
        if (player.isGrounded()) {
-        player.jump(jumpForce); 
+        player.play("jump"); 
+        player.jump(jumpForce);
+        wait(2, () => {
+            player.play("run");
+        }) 
        }
-      
+       
     });
 
     onClick(() => {
