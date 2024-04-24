@@ -46,7 +46,7 @@ setGravity(1400);
 
 
 
-loadSprite("dead", "deadSheet.png", {
+loadSprite("dead", "assets/deadSheet.png", {
     sliceX: 2, 
     sliceY: 1,
     anims: {
@@ -58,7 +58,7 @@ loadSprite("dead", "deadSheet.png", {
     },
 })
 
-loadSprite("gobbo", "gabbo2.png", {
+loadSprite("gobbo", "assets/gabbo2.png", {
     sliceX: 4, 
     sliceY: 1,
     anims: {
@@ -73,12 +73,12 @@ loadSprite("gobbo", "gabbo2.png", {
         }
     },
 })
-loadSprite("platform", "platform.png" )
-loadSprite("doubleSpike", "doubleSpike.png");
-loadSprite("spike", "spike.png");
-loadSprite("floor", "floor.png");
-loadSprite("cloud", "cloud.png"); 
-loadFont("upHeave", "upheavtt.ttf");
+
+loadSprite("doubleSpike", "assets/doubleSpike.png");
+loadSprite("spike", "assets/spike.png");
+loadSprite("floor", "assets/floor.png");
+loadSprite("cloud", "assets/cloud.png"); 
+loadFont("upHeave", "assets/upheavtt.ttf");
 scene("game", () => {
     
 
@@ -119,24 +119,7 @@ scene("game", () => {
         player.play("run")   
 
 
-        function spawnplatforms() {
-            const platform = add([
-                sprite("platform"),
-                scale(6 ),
-                area(),
-                body({ isStatic: true }), 
-                pos(width(), height() - floorHeight - randi(80, 130)),
-               anchor("botleft"),
-                move(LEFT,speed),
-                "platform",
-                offscreen({ destroy: true }),
-
-            ])
-        wait(rand(2,4), spawnplatforms);
-    }
-
-    spawnplatforms();
-
+      
 
     
      add([
