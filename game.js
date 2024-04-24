@@ -73,7 +73,7 @@ loadSprite("gobbo", "gabbo2.png", {
         }
     },
 })
-
+loadSprite("platform", "platform.png" )
 loadSprite("doubleSpike", "doubleSpike.png");
 loadSprite("spike", "spike.png");
 loadSprite("floor", "floor.png");
@@ -101,16 +101,41 @@ scene("game", () => {
     const player = add([
         sprite("gobbo"),
         scale(3),
-        pos(70,500),
+        pos(90,500),
         area(),
-        body(),
-      
+        body({
+            jumpForce: jumpForce,
+        } ),  
+        doubleJump()
     
     ]);
  
+    onUpdate(() => {
+      if (player.pos.x <  -10) {
+        go("lose");
+      }
+    })
 
         player.play("run")   
 
+
+        function spawnplatforms() {
+            const platform = add([
+                sprite("platform"),
+                scale(6 ),
+                area(),
+                body({ isStatic: true }), 
+                pos(width(), height() - floorHeight - randi(80, 130)),
+               anchor("botleft"),
+                move(LEFT,speed),
+                "platform",
+                offscreen({ destroy: true }),
+
+            ])
+        wait(rand(2,4), spawnplatforms);
+    }
+
+    spawnplatforms();
 
 
     
@@ -147,7 +172,7 @@ scene("game", () => {
                 move(LEFT,speed),
                 "spike",
                 offscreen({ destroy: true }),
-            ])
+            ]) 
         
     }
 
@@ -182,13 +207,13 @@ spawnTraps();
 
 
     onKeyPress("space", () => {
-       if (player.isGrounded()) {
+       
         player.play("jump"); 
-        player.jump(jumpForce);
+        player.doubleJump(jumpForce);
         wait(2, () => {
             player.play("run");
-        }) 
-       }
+        
+        })
        
     });
 
