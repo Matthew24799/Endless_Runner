@@ -103,9 +103,12 @@ scene("game", () => {
         sprite("gobbo"),
         scale(3),
         pos(90,500),
-        area(),
+        area({
+            
+        }),
         body({
             jumpForce: jumpForce,
+            
         } ),  
         doubleJump()
     
@@ -182,11 +185,10 @@ scene("game", () => {
     const dir = player.pos.sub(cannon.pos).unit();
 
     function shoot() {
-
     const cannonBall = add([
         pos(width() - 50, height() - floorHeight - 340),
-        move(dir, 700),
-        rect(12,12),
+        move(dir, 1000),
+        rect(22,22),
         area(),
         offscreen({ destroy: true }),
         anchor("center"),
@@ -194,10 +196,12 @@ scene("game", () => {
         "trap",
     ])
 
-    wait(rand(2.0,4.0 ),shoot); 
+    wait(rand(2.0,4.0),shoot); 
 }
 
-shoot();
+wait(4, () => {
+    shoot()
+})
 
 function spawnTraps() {
    const trap = randi(1,3)
