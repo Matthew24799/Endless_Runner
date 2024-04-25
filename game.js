@@ -77,7 +77,8 @@ loadSprite("gobbo", "assets/gabbo2.png", {
 loadSprite("doubleSpike", "assets/doubleSpike.png");
 loadSprite("spike", "assets/spike.png");
 loadSprite("floor", "assets/floor.png");
-loadSprite("cloud", "assets/cloud.png"); 
+loadSprite("cloud", "assets/cloud.png");
+loadSprite("cannon", "assets/cannon.png")
 loadFont("upHeave", "assets/upheavtt.ttf");
 scene("game", () => {
     
@@ -171,7 +172,32 @@ scene("game", () => {
             offscreen({ destroy: true }),
     ])}
     
+      const cannon = add ([
+        sprite("cannon"),
+        scale(10 ), 
+        pos(width() - 100 , height() - floorHeight - 400),
 
+    ])
+
+    const dir = player.pos.sub(cannon.pos).unit();
+
+    function shoot() {
+
+    const cannonBall = add([
+        pos(width() - 50, height() - floorHeight - 340),
+        move(dir, 700),
+        rect(12,12),
+        area(),
+        offscreen({ destroy: true }),
+        anchor("center"),
+        color(RED),
+        "trap",
+    ])
+
+    wait(rand(2.0,4.0 ),shoot); 
+}
+
+shoot();
 
 function spawnTraps() {
    const trap = randi(1,3)
