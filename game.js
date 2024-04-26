@@ -179,33 +179,54 @@ scene("game", () => {
     
       const cannon = add ([
         sprite("cannon"),
-        scale(10 ), 
+        scale(10), 
         pos(width() - 100 , height() - floorHeight - 400),
 
     ])
 
     const dir = player.pos.sub(cannon.pos).unit();
 
-    function shoot() {
     const cannonBall = add([
         sprite("cannonBall"),
         scale(2),
-        rotate(360),
+        rotate(0),
         pos(width() - 50, height() - floorHeight - 340),
         move(dir, 1000),
         area(),
         offscreen({ destroy: true }),
         anchor("center"),
-        color(RED),
         "trap",
+        "cannon"
     ])
 
-    wait(rand(2.0,4.0),shoot); 
-}
 
-wait(4, () => {
-    shoot()
+
+    onUpdate("cannon", (cannonBall) => {
+    cannonBall.angle += 120 * dt();
 })
+
+
+function cannonShoot() {
+
+    add([
+        sprite("cannonBall"),
+        scale(2),
+        rotate(0),
+        pos(width() - 50, height() - floorHeight - 340),
+        move(dir, 1000),
+        area(),
+        offscreen({ destroy: true }),
+        anchor("center"),
+        "trap",
+        "cannon"
+    ])
+
+
+wait(rand(2.0,3.0), cannonShoot)
+
+};
+
+wait(3,cannonShoot());
 
 function spawnTraps() {
    const trap = randi(1,3)
