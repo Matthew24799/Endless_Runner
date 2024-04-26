@@ -6,39 +6,13 @@ let score = 0;
 const game = document.querySelector("#game");
 
 
-const scales = Math.min(
-    window.innerWidth / 1280, 
-    window.innerHeight / 720
-);
-
-
-
-let scaledWidth = 1280 * scales;
-let scaledHeight = 720 * scales;
-
-
-if (scaledWidth > 1280 || scaledHeight > 720) {
-    const aspectRatio = 1280 / 720; 
-    if (scaledWidth / scaledHeight > aspectRatio) {
-        // Limit width
-        scaledWidth = 1280;
-        scaledHeight = scaledWidth / scales;
-    } else {
-        
-        scaledHeight = 720;
-        scaledWidth = scaledHeight * scales;
-    }
-}
-
-
 kaboom({
-  //  width: 1280,
-  //  height: 720,
+    width: 960,
+    height: 540,
     canvas: game,
-  width: scaledWidth,
-  height: scaledHeight,
+ 
     font: "upHeave",
-    letterbox: true,
+  //  letterbox: true,
 });
 
 
@@ -104,7 +78,7 @@ scene("game", () => {
     const player = add([
         sprite("gobbo"),
         scale(3),
-        pos(90,500),
+        pos(5,400),
         area({
             
         }),
@@ -186,34 +160,24 @@ scene("game", () => {
 
     const dir = player.pos.sub(cannon.pos).unit();
 
-    const cannonBall = add([
-        sprite("cannonBall"),
-        scale(2),
-        rotate(0),
-        pos(width() - 50, height() - floorHeight - 340),
-        move(dir, 1000),
-        area(),
-        offscreen({ destroy: true }),
-        anchor("center"),
-        "trap",
-        "cannon"
-    ])
+   
 
 
 
     onUpdate("cannon", (cannonBall) => {
-    cannonBall.angle += 120 * dt();
-})
+        cannonBall.angle += 120 * dt();
+    })
+    
 
+  function cannonShoot() {
 
-function cannonShoot() {
-
+    const dir = player.pos.sub(cannon.pos).unit();
     add([
         sprite("cannonBall"),
         scale(2),
         rotate(0),
         pos(width() - 50, height() - floorHeight - 340),
-        move(dir, 1000),
+        move(dir, 1500),
         area(),
         offscreen({ destroy: true }),
         anchor("center"),
@@ -222,11 +186,15 @@ function cannonShoot() {
     ])
 
 
-wait(rand(2.0,3.0), cannonShoot)
+wait(rand(1.0,3.0), cannonShoot)
 
 };
 
-wait(3,cannonShoot());
+wait(3, () => {
+    cannonShoot();
+})
+
+
 
 function spawnTraps() {
    const trap = randi(1,3)
