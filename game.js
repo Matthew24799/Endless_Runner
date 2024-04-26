@@ -74,11 +74,13 @@ loadSprite("gobbo", "assets/gabbo2.png", {
     },
 })
 
+
 loadSprite("doubleSpike", "assets/doubleSpike.png");
 loadSprite("spike", "assets/spike.png");
 loadSprite("floor", "assets/floor.png");
 loadSprite("cloud", "assets/cloud.png");
-loadSprite("cannon", "assets/cannon.png")
+loadSprite("cannon", "assets/cannon.png");
+loadSprite("cannonBall", "assets/cannonBall.png");
 loadFont("upHeave", "assets/upheavtt.ttf");
 scene("game", () => {
     
@@ -186,9 +188,11 @@ scene("game", () => {
 
     function shoot() {
     const cannonBall = add([
+        sprite("cannonBall"),
+        scale(2),
+        rotate(360),
         pos(width() - 50, height() - floorHeight - 340),
         move(dir, 1000),
-        rect(22,22),
         area(),
         offscreen({ destroy: true }),
         anchor("center"),
